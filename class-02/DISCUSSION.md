@@ -35,13 +35,13 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 - [An introduction to NodeJS and Express](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/Introduction){:target="_blank"}
 - [What is NPM?](https://docs.npmjs.com/getting-started/what-is-npm){:target="_blank"}
-- [What is TDD?](https://www.agilealliance.org/glossary/tdd/){:target="_blank"
+- [What is TDD?](https://www.agilealliance.org/glossary/tdd/){:target="_blank"}
 - [CI/CD](https://www.youtube.com/watch?v=xSv_m3KhUO8){:target="_blank"}
 
 #### Bookmark
 
 - [nodeJS docs](https://nodejs.org/en/docs/){:target="_blank"}
 - [npm docs](https://docs.npmjs.com){:target="_blank"}
-- [express docs](https://expressjs.com/en/4x/api.html){:target="_blank"
+- [express docs](https://expressjs.com/en/4x/api.html){:target="_blank"}
 - [http status codes](https://www.restapitutorial.com/httpstatuscodes.html){:target="_blank"}
 - [supertest](https://github.com/visionmedia/supertest){:target="_blank"}
