@@ -1,35 +1,44 @@
-# Warm Up - Modal Dialogue
+# Event Driven Applications
 
-## Overview
+Create a new application using real-time events
 
-Modals are a UI tool that are often used on websites to gather attention/information as well as to force the user to take one action, restricting access to other content.
+Your team will be responsible for planning, executing, and presenting an application that showcases an event driven architecture
 
-![Modal](modal.png)
+## Requirements
 
-Characteristically, modal dialogue boxes:
+Your application must employ the following programming concepts:
 
-- Are centered vertically and horizontally
-- Sit atop an "overlay" which:
-  - Dims out the page content behind the modal
-  - Restricts the user from being able to interact with the page below
-- Have a close mechanism
-  - A button
-  - Pressing `<escape>`
-  - Clicking "outside" of the box
+1. A "hub" server that moderates all events
+1. Multiple "clients" that connect to the hub which can both publish and subscribe to events
+1. Must operate over a network
 
-## Challenge
+Optional:
 
-Implement a Modal dialogue similar to the example.
+- Engage an API that uses a database to store/retrieve information based on the events being triggered
+- Employ a standard "Queue" to ensure all messages are properly delivered
+- Employ a FIFO "Queue" to ensure ordered delivery of some events
 
-- Create a button that opens the modal
-- Add an overlay to the page, with opacity, restricting the user from selecting text or clicking things
-- Set the modal atop the overlay
-- Add a close button to the modal which would hide it
+### Presentation
 
-## Notes
+On the due-date, your team will present a working version of your project to the class showcasing the following:
 
-Accomplish this purely with CSS, no javascript!
+- General Functionality
+- Wiring (quick overview)
+- Code Review
 
-### Stretch Goal
+Plan for ~15 minutes for your team's presentation
 
-- Using Javascript, handle `<escape>` or clicking outside the modal as a means to close the dialogue
+## Project Ideas
+
+- A simple game where multiple clients can take turns, using events, with the hub acting as the host
+  - Closest to the number, Fastest person to type a word, etc
+- A support/service center where customers place requests for help (tickets) and service workers assist and close tickets
+- Re-Implement CAPS only using AWS SNS/SQS systems or Microsoft Azure Event Hubs
+
+## Grading
+
+Your team grade is based on the following factors:
+
+1. % of the application that was completed
+1. Code Quality
+1. Presentation
