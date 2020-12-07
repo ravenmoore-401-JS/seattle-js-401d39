@@ -1,32 +1,126 @@
-# Warm Up - Decks
+# LAB: Express REST API
 
-## Overview
+Dynamic API Phase 2: Perform CRUD Operations on a database
 
-One of the newest design patterns for modern websites is the use of "Cards" and "Decks"
+## Before you begin
 
-A **Card** is the visual representation (markup) of structured content (data).
+1. Refer to the *Getting Started* guide  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md)
+1. Create a new repository called `basic-api-server`
+1. Work in a new branch called `dev`, created from `main`
+1. Following completion of this assignment, create a Pull Request from `dev` to `main` and merge your code
+   - You will deploy from your `main` branch to a new app at Heroku
+   - You will add a link to the PR that you merged in your README for grading purposes
 
-- Cards lay out content
+## Phase 2 Requirements
 
-A **Deck** is the visual representation of a group of cards
+Build a REST API using Express, by creating a proper series of endpoints that perform CRUD operations on a database, using the REST standard
 
-- Decks lay out cards
+### Data Models
 
-Decks are typically implemented as a container with a class name don't have content of their own, other than the cards that are there as it's children. However, some systems allow decks to have a title and even a navigation element, depending on the complexity of the system. The goal, as with cards, however, should be for a deck to be able to be styled with CSS to cover all cases (i.e. having a title or not)
+- Create 2 in-memory data models using ES6 Classes, exported as Node Modules
+  - Define your field names and an empty data storage in the constructor
+- The classes should have the following methods defined, to perform CRUD Operations:
+  - `create()`
+    - Should ensure that the record created only has the fields that you defined
+  - `get()` or `read()`
+  - `update()`
+  - `delete()`
 
-- Title
-- Nav
+> For the data models, you are free to choose your own data types and describe their fields ... For Example: person, animal, car, instrument, game
 
-By default, decks should show their content (cards) vertically stacked, as shown below, so that they are "responsive" out of the box. As you discover more ways to lay out the deck elements and cards, you'll likely always revert to this core layout as your responsive base.
+### Routes
 
-![DECK](deck.png)
+In your express server, create a route module for each data model that you've created. Within the router module, create REST route handlers for each of the REST Methods that properly calls the correct CRUD method from the matching data model.
 
-## Challenge
+> For these examples, we'll use 'food`
 
-1. Create a set of rules for describing the core deck content data as markup
-   - e.g. What elements will you use for the deck container itself? The title? Image?
-1. Using CSS (or SASS), implement styling rules to lay out a deck of cards in a stacked, responsive manner, similar to the example
+#### Add a Record
 
-### Notes
+- CRUD Operation: Create
+- REST Method: POST
+- Path: /food
+- Input: JSON Object in the Request Body
+- Returns: The record that was added to the database.
+  - You must generate an ID and attach it to the object
+  - You should verify that only the fields you define get saved as a record
 
-Decks can come in many shapes and sizes. Cards will often be arranged side by side, as tabs or accordions, and even have different positional styling. Consider the edge cases (and possibilities!) as you create your design.
+#### Get All Records
+
+- CRUD Operation: Read
+- REST Method: GET
+- Path: /food
+- Returns: An array of objects, each object being one entry from your database
+
+#### Get One Record
+
+- CRUD Operation: Read
+- REST Method: GET
+- Path: /food/1
+- Returns: The object from the database, which has the id matching that which is in the path
+
+#### Update A Record
+
+- CRUD Operation: Update
+- REST Method: PUT
+- Path: /food/1
+- Input: JSON Object in the Request Body
+- Returns: The object from the database, which has the id matching that which is in the path, with the updated/changed data
+  - You should verify that only the fields you define get saved as a record
+
+#### Delete A Record
+
+- CRUD Operation: Destroy
+- REST Method: DELETE
+- Path: /food/1
+- Returns: The record from the database as it exists after you delete it (i.e. `null`)
+
+### Implementation Notes
+
+- Create an express server with the following proposed structure
+
+```text
+├── .gitignore
+├── .eslintrc.json
+├── __tests__
+│   ├── server.test.js
+│   ├── logger.test.js
+├── src
+│   ├── error-handlers
+│   │   ├── 404.js
+│   │   ├── 500.js
+│   ├── middleware
+│   │   ├── logger.js
+│   │   ├── validator.js
+│   ├── models
+│   │   ├── food.js
+│   │   ├── clothes.js
+│   ├── routes
+│   │   ├── food.js
+│   │   ├── clothes.js
+│   ├── server.js
+├── index.js
+└── package.json
+```
+
+- In your server.js, `require()` your router modules, and `use()` them
+- In your routers, `require()` the correct data model and instantiate a new instance
+
+### Testing Requirements
+
+- Assert the following
+  - 404 on a bad route
+  - 404 on a bad method
+  - The correct status codes and returned data for each REST route
+    - Create a record using POST
+    - Read a list of records using GET
+    - Read a record using GET
+    - Update a record using PUT
+    - Destroy a record using DELETE
+
+### Deployment
+
+Your server must be deployed to Heroku. Please note the deployed URL in your README!
+
+## Assignment Submission Instructions
+
+Refer to the the [Submitting Express Server Lab Submission Instructions](../../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations

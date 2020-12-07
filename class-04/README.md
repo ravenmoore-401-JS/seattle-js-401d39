@@ -43,33 +43,38 @@ Data Modeling: The process of taking a real world or conceptual idea and encodin
 | `db.<collection>.save()` | Save a new document / record to the specified collection `<collection>`     |
 | `db.<collection>.drop()` | Completely removes the specified collection `<collection>`                  |
 
-### A Mongoose "Schema"
+### A Mongoose "Schema" / "Model"
 
 ```javascript
-const players = mongoose.Schema({
+const playersSchema = mongoose.Schema({
   name: { type: String, required: true },
   position: { type: String, required: true, uppercase: true, enum: ['P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'RF', 'CF'] },
   throws: { type: String, required: true, uppercase: true, enum: ['R', 'L'] },
   bats: { type: String, required: true, uppercase: true, enum: ['R', 'L'] },
   team: { type: String, required: true },
 });
+
+const playersModel = mongoose.model('players', playersSchema)
 ```
 
 ### Mongoose Built-In CRUD Methods
 
+Here are a few ways that Mongoose makes it easy to interact with your database
 (All return promises)
 
 ```javascript
-    let newRecord = new schema(record);
+    let newRecord = new playersModel(record);
     return newRecord.save();
 
-    schema.findOneByIdAndDelete(id);
+    playersModel.findOneByIdAndDelete(id);
 
-    schema(findById(id));
+    playersModel(findById(id));
 
 ```
 
 ### Hosted Mongo Databases: Atlas
+
+While you can run Mongo on your own machines, it's quite common to run an instance of Mongo in the cloud so that you can take advantage of better hardware, more memory and higher speed networks. Mongo offers a hosted cloud database service called "Atlas" ... once you've got this setup, it's easy to connect your API servers from anywhere in the world to use it.
 
 1. Sign Up
 1. Setup the organization
@@ -107,3 +112,15 @@ const players = mongoose.Schema({
      - Replace `<password>` with the password you created earlier
      - Replace `<dbname>` with the name of the database you want to use for your application, for example 'people'
      - Use this as  `MONGODB_URI` in your .env file or at Heroku when you deploy
+
+![Account Setup](assets/atlas-setup.png)
+
+![Choose Plan](assets/atlas-choose-plan.png)
+
+![Cluster](assets/atlas-cluster-screen.png)
+
+![Network Options](assets/atlas-network.png)
+
+![Connect](assets/atlas-connect-options.png)
+
+![Heroku Setup](assets/heroku-mongo.png)
