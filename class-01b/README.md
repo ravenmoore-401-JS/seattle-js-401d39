@@ -20,7 +20,11 @@ Application development in the Node.js ecosystem, including the writing of modul
 
 ## Today's Outline
 
-<!-- To Be Completed By Instructor -->
+1. Kickoff
+1. Introductions
+1. Nuts and Bolts of the class
+1. Modularization
+1. Middleware
 
 ## Notes
 

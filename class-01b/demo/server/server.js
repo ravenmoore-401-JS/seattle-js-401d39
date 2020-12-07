@@ -1,39 +1,44 @@
 'use strict';
 
-const express = require('express');
+// libraries
+require('dotenv').config();
+const express = require('express'); // server
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-const notFoundHandler = require('./handlers/404.js');
-const errorHandler = require('./handlers/500.js');
-const stamper = require('./middleware/stamper.js');
+// local files
+const notFoundHandler = require('./handlers/404');
+const errorHandler = require('./handlers/500');
 
-app.get('/', stamper, (req, res) => {
-  res.status(200).send('Hello World')
-})
-
-app.get('/data', stamper, (req, res) => {
-  let outputObject = {
-    10: "even",
-    5: "odd",
-    "time": req.timestamp // we got this from the middleware
-  }
-
-  res.status(200).json(outputObject);
-});
-
+// routes
+app.get('/', renderHome);
+app.get('/data', renderData);
 app.get('/bad', (req, res, next) => {
-  next('you messsed up')
-});
-
+  // anytime you put anything inside of the next(), it will thow an error
+  next('you messed up');
+})
 app.use('*', notFoundHandler);
+
+// whenever someone throws an error, use the function errorHandler
 app.use(errorHandler);
 
-
-function start(port) {
-  app.listen(port, () => console.log(`Server up on port ${port}`))
+// callback functions
+function renderHome(req, res){
+  res.status(200).send('hello world');
 }
 
-module.exports = {
-  app: app,
-  start: start
+function renderData(req, res, next){
+  const outputObj = {
+    10: "even",
+    5: "odd",
+    "time": new Date()
+  }
+
+  res.status(200).json(outputObj);
 }
+
+
+// turning server on
+app.listen(PORT, () => {
+  console.log(`listening on ${PORT}`);
+})
