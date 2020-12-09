@@ -18,7 +18,11 @@ Express servers can quickly get big and out of control if you build them in one 
 
 ## Today's Outline
 
-<!-- To Be Completed By Instructor -->
+1. Code Review
+1. Classes
+1. CRUD/REST/HTTP
+1. Express Router
+1. Data Modeling
 
 ## Notes
 
