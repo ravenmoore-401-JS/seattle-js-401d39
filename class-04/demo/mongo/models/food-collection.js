@@ -3,16 +3,15 @@
 const model = require('./food-model');
 
 class FoodCollection {
-
-  constructor() {
+  
+  constructor(){
     this.model = model;
   }
 
   get(_id) {
-    if (_id) {
-      return this.model.findOne({ _id });
-    }
-    else {
+    if(_id) {
+      return this.model.findOne({_id});
+    } else {
       return this.model.find({});
     }
   }
@@ -23,13 +22,12 @@ class FoodCollection {
   }
 
   update(_id, record) {
-    return this.model.findByIdAndUpdate(_id, record, { new: true });
+    return this.model.findByIdAndUpdate(_id, record, {new: true});
   }
 
   delete(_id) {
     return this.model.findByIdAndDelete(_id);
   }
-
 }
 
 module.exports = FoodCollection;

@@ -1,10 +1,10 @@
 'use strict';
 
 const express = require('express');
-const Bananas = require('../models/banana');
-const bananas = new Bananas();
+const Bananas = require('../models/banana'); // class that lets us use CRUD verbs to interact with our in-memory db
+const bananas = new Bananas(); // makes a new instances of our class
 
-const router = express.Router();
+const router = express.Router(); // built component of express that lets us modularize our routs
 
 // RESTful routes
 router.get('/bananas', getBananas);
@@ -32,7 +32,10 @@ function createBanana(req, res) {
 }
 
 function updateBanana(req, res) {
-  res.status(200).send('updating banana');
+  const id = req.params.id;
+  const obj = req.body;
+  const updatedBanana = banana.update(id, obj);
+  res.status(200).send(updatedBanana);
 }
 
 function deleteBanana(req, res) {

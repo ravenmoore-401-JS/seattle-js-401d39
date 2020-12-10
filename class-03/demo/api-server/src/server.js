@@ -10,10 +10,11 @@ const serverError = require('./error-handler/500');
 const bananaRoutes = require('./routes/banana-routes');
 
 // my middleware
-app.use(express.json());
-app.use(logger);
-app.use(bananaRoutes);
+app.use(express.json()); // turns my req.body into json
+app.use(logger); // console.log() routes and methods
+app.use(bananaRoutes); // all of my routes
 
+// proof of life
 app.get('/demo', demoCallbackHandler);
 
 function demoCallbackHandler(req, res, next){
@@ -24,10 +25,12 @@ function demoCallbackHandler(req, res, next){
 // REST - post      get    put      delete
 
 
+// error handler
+app.use('*', notFoundHandler); // 404 not found if we don't hit a route we made
+app.use(serverError); // 500 error when something throws an error
 
-app.use('*', notFoundHandler);
-app.use(serverError);
-
+// exporting app and start
+// so we can access it in the index and the tests
 module.exports = {
   server: app,
   start: port => {
