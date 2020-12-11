@@ -8,7 +8,7 @@ We will now be using that Token to re-authenticate users to shield access to any
 
 ## Before you begin
 
-Refer to *Getting Started*  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
 
 1. Continue working in your `auth-server` repository, in a new branch called `class-13`, created from `master`
 1. Following completion of this assignment, you may merge this branch back into your `master` branch.
@@ -126,4 +126,4 @@ We have deployed a web application that's designed to test your Server. This is 
 
 ### Assignment Submission Instructions
 
-Refer to the the [Submitting Express Server Lab Submission Instructions](../../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations
+Refer to the the [Submitting Express Server Lab Submission Instructions](../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations
