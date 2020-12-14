@@ -1,84 +1,86 @@
 'use strict';
 
-// 3rd Party Resources
+// 3rd part libraries
 const express = require('express');
-const bcrypt = require('bcrypt');
+const app = express();
 const base64 = require('base-64');
+const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 
-// Prepare the express app
-const app = express();
-
-// Process JSON input and put the data on req.body
+// middleware to parse the body
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
-// Process FORM intput and put the data on req.body
-app.use(express.urlencoded({ extended: true }));
-
-// Create a mongoose model
-const usersSchema = mongoose.Schema({
+// create our Mongoose Model
+const userSchema = mongoose.Schema({
   username: { type: String, required: true },
-  password: { type: String, required: true },
+  password: { type: String, required: true }
 });
-const Users = mongoose.model('users', usersSchema);
 
-// Signup Route -- create a new user
-// Two ways to test this route with httpie
-// echo '{"username":"john","password":"foo"}' | http post :3000/signup
-// http post :3000/signup usernmae=john password=foo
+const User = mongoose.model('users', userSchema);
+
+// Signup route -- create a new user
 app.post('/signup', async (req, res) => {
-
+  console.log(req.body);
+  // req.body = { username: 'bob', password: 'foo' }
   try {
     req.body.password = await bcrypt.hash(req.body.password, 10);
-    const user = new Users(req.body);
+    // req.body = { username: 'bob', password: 'afoiapj84p0a349tq0afiaapw40j8apg4e0' }
+    const user = new User(req.body);
     const record = await user.save(req.body);
-    res.status(200).json(record);
-  } catch (e) { res.status(403).send("Error Creating User"); }
+    res.status(201).json(record);
+  } catch (error) { res.status(403).send('error creating user'); }
 });
 
-
-// Signin Route -- login with username and password
-// test with httpie
-// http post :3000/signin -a john:foo
 app.post('/signin', async (req, res) => {
+  console.log(req.headers);
 
-  /*
-    req.headers.authorization is : "Basic sdkjdsljd="
-    To get username and password from this, take the following steps:
-      - Turn that string into an array by splitting on ' '
-      - Pop off the last value
-      - Decode that encoded string so it returns to user:pass
-      - Split on ':' to turn it into an array
-      - Pull username and password from that array
-  */
+  // 1. turn the string into an array by splitting on the space (' ')
+  // 2. Pop off the last value
+  // 3. Decode that encoded string (return user:password)
+  // 4. Split on the ':'
+  // 5. Pull the username and password from that array
 
-  let basicHeaderParts = req.headers.authorization.split(' ');  // ['Basic', 'sdkjdsljd=']
-  let encodedString = basicHeaderParts.pop();  // sdkjdsljd=
-  let decodedString = base64.decode(encodedString); // "username:password"
-  let [username, password] = decodedString.split(':'); // username, password
+  let basicHeaderParts = req.headers.authorization.split(' ');
+  console.log('step 1', basicHeaderParts);
+  // step 1 [ 'Basic', 'Ym9iOmZvbw==' ]
 
-  /*
-    Now that we finally have username and password, let's see if it's valid
-    1. Find the user in the database by username
-    2. Compare the plaintext password we now have against the encrypted password in the db
-       - bcrypt does this by re-encrypting the plaintext password and comparing THAT
-    3. Either we're valid or we throw an error
-  */
+  let encodedString = basicHeaderParts.pop();
+  console.log('step 2', encodedString);
+  // step 2 Ym9iOmZvbw==
+
+  let decodedString = base64.decode(encodedString);
+  console.log('step 3', decodedString);
+  // step 3 bob:foo
+
+  let [username, password] = decodedString.split(':');
+  // step 4. [ 'bob', 'foo' ]
+  console.log('step 4.', [username, password])
+
   try {
-    const user = await Users.findOne({ username: username })
+    // 1. find the user in the database by the username
+    const user = await User.findOne({ username });
+
+    // 2. compare the plaintext password that we now have with the one in the database
     const valid = await bcrypt.compare(password, user.password);
-    if (valid) {
-      res.status(200).json(user);
-    }
-    else {
-      throw new Error('Invalid User')
-    }
-  } catch (error) { res.status(403).send("Invalid Login"); }
 
-});
+    // 3. either its valid or we throw an error
+    if( valid ){
+      res.status(200).json(`hi ${user.username}`);
+    } else {
+      throw new Error('Invalid User');
+    }
 
-mongoose.connect('mongodb://localhost:27017/auth', { useNewUrlParser: true, useUnifiedTopology: true })
+  }
+  catch (e){ res.status(403).send('you are not allowed')}
+
+
+})
+
+const MONGOOSE_URI = 'mongodb://localhost:27017/auth';
+const options = { useNewUrlParser: true, useUnifiedTopology: true };
+mongoose.connect(MONGOOSE_URI, options)  
   .then(() => {
-    app.listen(3000, () => console.log('server up'));
+    app.listen(3000, () => console.log('server is up'));
   })
-  .catch(e => console.error('Could not start server', e.message));
+  .catch(e => console.error('could not start server', e));
