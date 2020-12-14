@@ -6,12 +6,14 @@ Dynamic API Phase 3: Add Persistence (Database) to your API
 
 ## Before you begin
 
-1. Refer to the *Getting Started* guide  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md)
+1. Refer to the *Getting Started* guide  in the [lab submission instructions](../../../reference/submission-instructions/labs/README.md)
 1. Create a new repository called `api-server`
 1. Work in a new branch called `dev`, created from `main`
 1. Following completion of this assignment, create a Pull Request from `dev` to `main` and merge your code
    - You will deploy from your `main` branch to a new app at Heroku
    - You will add a link to the PR that you merged in your README for grading purposes
+
+> Note: You should have a working express server from previous assignments. Use this as your reference. Today's lab will have you replicating 100% of the functionality, but using mongoose data models instead of those that you built previously. Resist the urge to copy your previous work and use it as a starting point. Rather, re-type the code from your working server, seeking to understand how it works and how it wires up. Then, approach the lab requirements below, which are principally focused on changing out the data models.
 
 ## Phase 3 Requirements
 
@@ -32,7 +34,7 @@ Build a REST API using Express, by creating a proper series of endpoints that pe
 
 ### Routes
 
-In your express server, create a route module for each data model that you've created. Within the router module, create REST route handlers for each of the REST Methods that properly calls the correct CRUD method from the matching data model.
+In your express server, create a router module for each data model that you've created. Within the router module, create REST route handlers for each of the REST Methods that properly calls the correct CRUD method from the matching data model.
 
 > For these examples, we'll use 'food`
 
@@ -75,20 +77,6 @@ In your express server, create a route module for each data model that you've cr
 - REST Method: DELETE
 - Path: /food/1
 - Returns: The record from the database as it exists after you delete it (i.e. `null`)
-
-### Stretch Goal
-
-Currently, as you add new models (imagine a system with 100 or more data models), you need to continually build new routes to use each model. Given that the code in the route modules is virtually identical (save for the `require()` of the correct data model), we should find a way to DRY this system.
-
-- Create a new route module called `v1` as a copy of one of your other, working routes
-- `require()` and `use()` this new router in your server
-  - Assign the `/api/v1` prefix to these routes.
-- Devise a way that you can `require()` the correct data model file based on the route
-  - i.e.
-    - <http://localhost:3000/api/v1/clothes> should require and use the file `models/clothes.js`
-    - <http://localhost:3000/api/v1/food> should require and use the file `models/food.js`
-  - Hint: use a route parameter along with middleware ... you might need to do some research
-- Once you have this working, delete your other (now no longer needed) route modules and the references to them in your server
 
 ### Implementation Notes
 
@@ -150,6 +138,20 @@ REMINDER: Your app needs a new dependency today: **mongoose**
 
 Your server must be deployed to Heroku. Please note the deployed URL in your README!
 
+### Stretch Goal
+
+Currently, as you add new models (imagine a system with 100 or more data models), you need to continually build new routes to use each model. Given that the code in the route modules is virtually identical (save for the `require()` of the correct data model), we should find a way to DRY this system.
+
+- Create a new route module called `v1` as a copy of one of your other, working routes
+- `require()` and `use()` this new router in your server
+  - Assign the `/api/v1` prefix to these routes.
+- Devise a way that you can `require()` the correct data model file based on the route
+  - i.e.
+    - <http://localhost:3000/api/v1/clothes> should require and use the file `models/clothes.js`
+    - <http://localhost:3000/api/v1/food> should require and use the file `models/food.js`
+  - Hint: use a route parameter along with middleware ... you might need to do some research
+- Once you have this working, delete your other (now no longer needed) route modules and the references to them in your server
+
 ## Assignment Submission Instructions
 
-Refer to the the [Submitting Express Server Lab Submission Instructions](../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations
+Refer to the the [Submitting Express Server Lab Submission Instructions](../../../reference/submission-instructions/labs/express-servers.md) for the complete lab submission process and expectations
