@@ -55,26 +55,30 @@ Today, we begin the first of a 3-Phase build of an authentication system, writte
 
 Keep your authentication related files in a folder called `/auth` so they are independent of the server itself
 
-- Extract the authentication logic for `/signin` as middleware
-  - Create a new node module
-  - Interact with the headers and the users model
-  - Add the user record (if valid) to the request object and call `next()`
-  - Call `next()` with an error in the event of a bad login
-- Extract the mongo/schema into a separate module
+- **User Schema**
+  - Extract the mongo/schema into a separate module
   - Model the user data
   - Add a pre-save hook in the model ... Before we save a record:
     - Hash the plain text password given before you save a user to the database
   - Create a method in the schema to authenticate a user using the hashed password
-- Create a module to house all of routes for the authentication system.
+- **Router Module**
+  - Create a module to house all of routes for the authentication system.
   - Create a POST route for `/signup`
     - Accepts either a JSON object or FORM Data with the keys "username" and "password"
     - Creates a new user record in a Mongo database
     - Returns a 201 with the created user record
   - Create a POST route for `/signin`
-    - Use your basic authentication middleware to perform the actual login task
-    - `router.post('/signin', basicAuth, (req,res) => {});`
-    - When validated, send a JSON object as the response with the following properties:
+    - Use your basic authentication middleware (see below requirement) to perform the actual login task
+    - i.e. `router.post('/signin', basicAuth, (req,res) => {});`
+    - When validated, send a JSON object as the response with the following property:
       - `user`: The users' database record
+- **Basic Auth Middleware**
+  - Extract the authentication logic for `/signin` from the route and implement as middleware
+  - Create a new node module
+  - Once you've extracted username and password from the authentication headers:
+    - Call the new method you created in the users model with the username and password
+    - If the user was found and has a matching password, (if valid) add the user object to the request object and call `next()`
+    - Otherwise, call `next()` with an error to signify a bad login
 
 ### Testing
 

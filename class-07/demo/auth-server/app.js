@@ -1,40 +1,42 @@
 'use strict';
 
-// 3rd Party Resources
-const express = require('express');
+// 3rd party libraries
 const mongoose = require('mongoose');
-const users = require('./users.js');
-const basicAuth = require('./basic-auth-middleware.js');
-const bearerAuth = require('./bearer-auth-middleware.js');
-
-// Prepare the express app
+const express = require('express');
 const app = express();
 
-// App Level MW
-app.use(express.static('./public'));
-app.use(express.json());
+// my modules
+const User = require('./users');
+const basicAuth = require('./basic-auth-middleware');
+const bearerAuth = require('./bearer-auth-middleware');
 
-// echo '{"username":"john","password":"foo"}' | http post :3000/signup
+// middleware VERY NECISSARY!!!!!
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+// routes
 app.post('/signup', (req, res) => {
-  users.save(req.body)
-    .then(user => {
-      let token = users.generateToken(user);
-      res.status(200).send(token);
+  const user = new User(req.body);
+  user.save()
+  .then(user => {
+      res.status(200).send(user);
     })
-    .catch(e => { res.status(403).send("Error Creating User"); });
 });
 
-// http post :3000/signin -a john:foo
+// basicAuth, if successful, puts a user on the request object
 app.post('/signin', basicAuth, (req, res) => {
   res.status(200).send(req.user);
-});
+})
 
-app.get('/user', bearerAuth, (req, res) => {
+app.post('/user', bearerAuth, (req, res) => {
   res.status(200).json(req.user);
-});
+})
 
-mongoose.connect('mongodb://localhost:27017/auth', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb://localhost:27017/newauth', { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    app.listen(3000, () => console.log('server up'));
+    // turn on the server
+    app.listen(3000, () => {
+      console.log('server up');
+    })
   })
-  .catch(e => console.error('Could not start server', e.message));
+  .catch(e => console.error('explode!,', e.message));
