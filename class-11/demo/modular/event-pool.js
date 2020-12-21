@@ -1,9 +1,9 @@
 'use strict';
-
 const Events = require('events');
-const events = new Events();
 
-// Export ONE instance of events that all modules can share
-// this is called a ... "singleton"
-// Think of it as a global variable that all the modules can see and use
+const events = new Events(); // make a new Event Pool - ONLY MAKE ONE!!!
+
+// anytime I want to emit and event or listen for an event, I will require this module. That way we are all listening to the same pool of events.
+// this is called a singleton
+
 module.exports = events;
