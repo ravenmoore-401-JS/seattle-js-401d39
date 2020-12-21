@@ -1,8 +1,15 @@
 'use strict';
 
 function coverEyes(payload) {
-  if (payload.brightness >= 90) {
-    console.log('Covering Eyes');
+  if(payload.brightness >= 90 ){
+    console.log('covering eyes');
   }
 }
-module.exports = { coverEyes }
+
+function fumbleForWall(payload) {
+  if(payload.brightness <= 20) {
+    console.log('fumble for wall');
+  }
+}
+
+module.exports = {coverEyes, fumbleForWall}
