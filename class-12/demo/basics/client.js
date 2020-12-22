@@ -2,20 +2,14 @@
 
 const io = require('socket.io-client');
 
-let host = 'http://localhost:3000'
+const host = 'http://localhost:3000';
 
+// connect to the host
 const socket = io.connect(host);
 
+// listen for the 'hi' event
 socket.on('hi', payload => {
-  console.log('The server said:', payload)
-  // ok, we're done, tell the server
-  socket.emit('goodbye');
-});
+  console.log('the HUB said: ', payload);
+})
 
-socket.on('bye', handleGoodbye);
-
-function handleGoodbye(payload) {
-  console.log('bye');
-}
-
-socket.emit('hello', 'John');
+socket.emit('hello', 'Tina');

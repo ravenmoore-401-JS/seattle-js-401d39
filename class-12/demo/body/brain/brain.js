@@ -1,63 +1,41 @@
 'use strict';
 
-// brain.js
-
 const port = process.env.PORT || 3000;
 
-// Get our connections built
-
-// This is the "/" (home) route
 const io = require('socket.io')(port);
 
-// Namespaces are segments of the server, routes, if you will.
-// These allow users to connect to the server, but only pay attention to what's happening in these "areas"
 const guts = io.of('/digestive-system');
 const healthSystem = io.of('/health-system');
 
-
-// Now, wire up each of the routes ...
-// For each namespace (route), handle connections by:
-// Noting the socket
-// Wiring up any specific listeners that this hub needs to handle
-
-
-// Global Hub (/) -- all connections and all events go to everyone
 io.on('connection', (socket) => {
-
-  console.log('CONNECTED', socket.id);
+  // console.log('You are now connected to the BRAIN', socket.id);
 
   socket.on('light', (payload) => {
-    console.log('SERVER EVENT: light', payload);
+    // console.log('The BRAIN heard the word LIGHT', payload);
     io.emit('brightness', payload);
-  });
+  })
 
   socket.on('smell', (payload) => {
-    console.log('SERVER EVENT: smell', payload);
+    // console.log('The BRAIN heard the word SMELL', payload);
     io.emit('smell', payload);
   })
-
 })
 
-// Digestion Hub (/digestive-system)
 guts.on('connection', (socket) => {
-  socket.on('swallow', (payload) => {
-    guts.emit('swallow', payload);
-  })
-});
+  console.log('You are now connected to the GUTS', socket.id);
 
-// Health Hub (/health-system)
+  // listening in this namespace for the word 'hungry', when we hear it, we send, 'hungry' back to the entry namespace of guts
+  socket.on('hungry', (payload) => {
+    console.log('In the BRAIN - heard the word HUNGRY - sending out the word HUNGRY', payload);
+    guts.emit('hungry', payload);
+  })
+})
+
 healthSystem.on('connection', (socket) => {
+  console.log('You are now connected to the HEALTH SYSTEM', socket.id);
 
   socket.on('cold', (payload) => {
+    console.log('in the BRAIN - heard the world COLD - sending out BUG', payload);
     healthSystem.emit('bug', payload);
   })
-
-  socket.on('flu', (payload) => {
-    healthSystem.emit('bug', payload);
-  })
-
-  socket.on('sugar', (payload) => {
-    healthSystem.emit('high-sugar', payload);
-  })
-
 })

@@ -1,28 +1,17 @@
 'use strict';
 
-const { Socket } = require('socket.io-client');
 const io = require('socket.io-client');
 
-let host = 'http://localhost:3000';
+const host = 'http://localhost:3000';
 
-const brainConnection = io.connect(host)
-const dsConnection = io.connect(`${host}/digestive-system`);
-const healthConnection = io.connect(`${host}/health-system`);
+// const brainConnection = io.connect(host);
+// const dsConnection = io.connect(`${host}/digestive-system`);
+const healthConnect = io.connect(`${host}/health-system`);
 
-brainConnection.emit('light', { level: 45 })
-brainConnection.emit('light', { level: 65 })
-brainConnection.emit('light', { level: 90 })
+healthConnect.emit('cold', { level: 4 });
 
-brainConnection.emit('smell', { scent: 'flowers' })
-brainConnection.emit('smell', { scent: 'vomit' })
-brainConnection.emit('swallow', { item: '321 Cake' }) // ignored by the server
+// dsConnection.emit('hungry', { level: 10 });
 
-// Targeted event to the digestive system
-dsConnection.emit('swallow', { item: 'Hot Dog' })
+// brainConnection.emit('light', { level: 90 });
 
-// Targeted to the health namespace
-healthConnection.emit('cold', { affliction: 'Common Cold' })
-healthConnection.emit('flu', { affliction: 'SARS-CoV2' })
-healthConnection.emit('sugar', { count: 170 });
-healthConnection.emit('sugar', { count: 23 });
-
+// brainConnection.emit('smell', { scent: 'freshly cut grass' });
