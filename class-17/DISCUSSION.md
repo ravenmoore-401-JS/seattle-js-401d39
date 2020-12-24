@@ -1,4 +1,4 @@
-# Readings: Data Modeling & NoSQL Databases
+# Readings: AWS: S3 and Lambda
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,35 +8,21 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. Name 3 advantages to Test Driven Development
-1. In what case would you need to use `beforeEach()` or `afterEach()` in a test suite?
-1. What is one downside of Test Driven Development
-1. What's the primary difference between ES6 Classes and Constructor/Prototype Classes?
-1. Name a use case for a static method
-1. Write an example of a Higher Order function and describe the use case it solves
+1. What's the difference between a FIFO and a standard queue?
+1. How can the server be assured a message was properly received?
+1. What classic design pattern is best represented by event driven programming?
+1. How do you test an event driven system?
 
 ### Document the following Vocabulary Terms
 
-| Term                              |
-| --------------------------------- |
-| functional programming            |
-| pure function                     |
-| higher-order function             |
-| immutable state                   |
-| object                            |
-| object-oriented programming (OOP) |
-| class                             |
-| prototype                         |
-| `super`                           |
-| inheritance                       |
-| constructor                       |
-| instance                          |
-| context                           |
-| `this`                            |
-| Test Driven Development (TDD)     |
-| Jest                              |
-| Continuous Integration (CI)       |
-| unit test                         |
+| Term                            |
+| ------------------------------- |
+| Server Instances                |
+| Containers                      |
+| Cloud Services                  |
+| Cloud Architecture              |
+| AWS                             |
+| EC2/Beanstalk vs Heroku         |
 
 ## Preview
 
@@ -48,10 +34,6 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [sql vs nosql](https://www.youtube.com/watch?v=ZS_kXvOeQ5Y){:target="_blank"} (Video)
-- [nosql vs sql](https://www.thegeekstuff.com/2014/01/sql-vs-nosql-db/?utm_source=tuicool){:target="_blank"}
-- [nosql modeling techniques](https://highlyscalable.wordpress.com/2012/03/01/nosql-data-modeling-techniques/){:target="_blank"}
-
-## Bookmark
-
-- [mongoose api](https://mongoosejs.com/docs/api.html#Model){:target="_blank"}
+- [AWS S3](){:target="_blank"}
+- [AWS Lambda Functions](){:target="_blank"}
+- [CDN](https://cyberhoot.com/cybrary/content-delivery-network-cdn/){:target="_blank"}

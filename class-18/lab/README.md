@@ -1,61 +1,71 @@
-# LAB: Advanced Mongo/Mongoose
+# Lab: AWS: API, Dynamo and Lambda
 
-Notesy Phase 4: Continue working on a multi-day build of a command-line (Terminal-based) note taking application.
+## Overview
 
-In this lab, we'll be refining our persistence layer by implementing a CRUD interface to our Mongoose Schema as a collection of data models.
+Create a serverless REST API
 
-## Before you begin
+## Feature Tasks & Requirements
 
-Refer to *Getting Started*  in the [lab submission instructions](../../reference/submission-instructions/labs/README.md) for complete setup, configuration, deployment, and submission instructions.
+Create a single resource REST API using a domain model of your choosing, constructed using AWS Cloud Services
 
-> Building off of your previous day's branch, create a new branch for today called 'collection' and continue to work in your 'notes' repository.
+- **Database**: DynamoDB
+  - 1 Table required
+- **Routing**: API Gateway
+  - **POST**
+  - `/people` - Given a JSON body, inserts a record into the database
+  -  returns an object representing one record, by its id (##)
+  - **GET**
+    - `/people` - returns an array of objects representing the records in the database
+    - `/people/##` - returns an object representing one record, by its id (##)
+  - **PUT**
+  - `/people/##` - Given a JSON body and an ID (##), updates a record in the database
+  -  returns an object representing one record, by its id (##)
+  - **DELETE**
+  - `/people/##` - Given an id (##) removes the matching record from the database
+  -  returns an empty object
+- **CRUD Operation Handlers**: Lambda Functions
 
-## Business Requirements
+## Implementation Notes
 
-Refer to the [Notesy Overview](../../apps-and-libraries/notesy/README.md) for a complete review of the application, including Business and Technical requirements along with the development roadmap.
+Work in a non-main branch in a new repository called 'serverless-api'. While your code will all reside in a single repo, your functions will need to be individually .zipped and deployed using common libraries (node_modules) and schema files.
 
-## Phase 4 Requirements
+- Create one table for one data model at Dynamo DB
+- Create a `Dynamoose` schema to define the structure of your table
+- Write lambda functions that will separately perform the proper CRUD operation on the database
+- Create your routes using API Gateway
+  - Routes should integrate with the appropriate Lambda function to perform the operation
 
-From a business/user perspective, the requirements remain unchanged from the previous lab
+## Testing
 
-Users will be able to create and save notes to a database, organize them into categories, view, and delete them.
+Once you can assert the type of data coming back from Dynamoose and the type of input you'll get from the API in the `event`, write the test cases for each Lambda function
 
-Upon completion of this phase, your Notesy application should be complete and ready for final delivery
+## Deployment
 
-## Technical Requirements / Notes
+As a baseline, deployment should be done manually, with .zip files containing the required files, uploaded to each function.  As a stretch goal, you should endeavor to have your functions automatically deployed on all checkins to your `main` branch
 
-Although the requirements are the same as the previous lab, in this assignment you'll be refactoring the application as follows
+## Stretch Goal
 
-- Create a notes "collection" through which you will perform CRUD operations with your notes mongoose schema.
-- `model/notes-collection.js`
-  - Requires the `notes-schema.js` module
-  - Implement the following collection interface methods for CRUD operations
-    - `get()`
-    - `create()`
-    - `update()`
-    - `delete()`
-  - Each method should invoke the proper mongoose method via your schema
-  - Write a suite of tests, using TDD to get the tests and your model working in sync.
-  - Use `@code-fellows/supergoose`
-- Refactor your `lib/notes.js` module to save, list, delete notes using the collection interface rather than the schema/mongoose methods directly
+As it stands, your API routes and Lambda functions are tightly coupled. Can you architect a system where the API routes send in the data model as a parameter, and the lambda functions dynamically use the correct schema to handle the request?
 
-### Stretch Goals
+For example,
 
-As this is the last build day for the **notes** application, finalize it.
+GET `/{model}/{id}` should invoke a lambda function that knows how to switch the Dynamo table name to match the **model** parameter as well as to use the correct schema for that model name.
 
-- Write proper JSDoc formatted documentation for all of your functions and methods
-- Achieve 100% test coverage
-- Deploy your application to NPM, under your own organization
-  - Add a proper 'bin' property in your `package.json`
-    - `"bin": { "notes": "notes.js" }`
-  - Add a correct 'shebang' line to the top of your notes.js file to make it executable
-    `#!/usr/bin/env node`
-  - Get your npmjs.org account setup, create an organization and then publish your module
-    - <https://docs.npmjs.com/creating-and-publishing-scoped-public-packages>
-  - Test it by installing it globally
-    - i.e. `npm install -g @myapps/notes`
-    - Run it `notes -a "test note" -c fun`
+This could create a very dynamic system, that could handle any data model...
 
-### Assignment Submission Instructions
 
-Refer to the the [Submitting Standard Node.js Lab Submission Instructions](../../reference/submission-instructions/labs/node-apps.md) for the complete lab submission process and expectations
+## Documentation
+
+Provide a UML diagram showcasing the architecture of your API
+
+Document the data and program flow for your API, including the mapping of Routes and Functions, as well as the flow of data.
+
+- What is the root URL to your API?
+- What are the routes?
+- What inputs do they require?
+- What output do they return?
+
+## Submission Instructions
+
+Submit a well written README.md in your repository following the above general guidelines
+
