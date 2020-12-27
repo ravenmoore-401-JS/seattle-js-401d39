@@ -34,6 +34,7 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [AWS S3](){:target="_blank"}
-- [AWS Lambda Functions](){:target="_blank"}
+- [AWS S3](https://aws.amazon.com/s3/){:target="_blank"}
+- [AWS Lambda Basics](https://www.serverless.com/aws-lambda){:target="_blank"}
+- [AWS Lambda Functions](https://aws.amazon.com/lambda/){:target="_blank"}
 - [CDN](https://cyberhoot.com/cybrary/content-delivery-network-cdn/){:target="_blank"}

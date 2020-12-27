@@ -31,6 +31,8 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [AWS API Gateway](){:target="_blank"}
-- [AWS DynamoDB](){:target="_blank"}
-- [Dynamoose](){:target="_blank"}
+- [AWS API Gateway Overview](https://www.serverless.com/amazon-api-gateway){:target="_blank"}
+- [AWS API Gateway](https://aws.amazon.com/api-gateway/){:target="_blank"}
+- [AWS DynamoDB Guide](https://www.dynamodbguide.com/what-is-dynamo-db/){:target="_blank"}
+- [AWS DynamoDB](https://aws.amazon.com/dynamodb/){:target="_blank"}
+- [Dynamoose](https://dynamoosejs.com/getting_started/Introduction){:target="_blank"}
