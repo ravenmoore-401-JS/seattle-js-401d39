@@ -1,6 +1,6 @@
-# Advanced Mongo/Mongoose
+# AWS: API, Dynamo and Lambda
 
-Deeper explorations of Data Modeling, specifically the lifecycle of data management with Mongoose Models, and testing.
+Mirroring our previous efforts in Express, today, we will be wiring up a completely serverless, let fully functional, CRUD-Enabled API.
 
 ## Learning Objectives
 
@@ -8,42 +8,89 @@ Deeper explorations of Data Modeling, specifically the lifecycle of data managem
 
 #### Describe and Define
 
-- Testing strategies for databases
-- Mocks
-- CRUD Functionality through Mongoose Methods
-- Interfaces and Collections
+- AWS API Gateway
+- How to trigger Lambda Functions in response to an API request
+- The differences between HTTP and REST APIs at AWS
+- The differences between DynamoDB and Mongo
 
 #### Execute
 
-- Proficiency with the `mongo` CLI and basic commands
-- Creation of a Mongoose Schema
-- Creation of a Data Model Interface (CRUD operations) for Mongo Schemas
-- Testing code that relies on a Mongo Database server
+- Creation of a DynamoDB Table
+- Creation of a Lambda function that can operate on a DynamoDB Table
+- Usage of Dynamoose in a NodeJS Lambda Function
 
 ## Today's Outline
 
+<!-- To Be Completed By Instructor -->
+
 ## Notes
 
-Using a Repository or a Facade is a powerful tool to abstract the "front end" from the actual database layer. Here, we've created a simple repository for "Food", which can later be used by any number of other modules to save food to a database
+Creating a serverless API: Checklist
 
-### Collection/Repository
+- [ ] IAM User role with access to Lambda and DynamoDB Full Access
+- [ ] Dynamo DB Table Created
+- [ ] Lambda function(s) that use Dynamoose to attach to the table
+  - [ ] Created with the correct IAM Role (Step 1)
+- [ ] API Endpoints that all the appropriate functions for each action type
 
-   ```javascript
-   const FoodStorage = require('food.mongo.schema.js');
+### Creating a Dynamo DB Table at AWS
 
-   class Food {
-     create(record) {
-       const food = new FoodStorage();
-       return food.save(record);
-     }
-   }
-   ```
+1. Open the DynamoDB Dashboard
+1. Choose `Create Table`
+1. Name your table
+1. Choose a field name to use as primary key
+   - Generally, "id", and you'll need to supply this when you add records
 
-### Client Modules
+### Working with Dynamo from Node
 
-   ```javascript
-   let Food = require('food.repository.js');
-   Food.create( {name:'Carrots'} );
-   ```
+When writing code that connects to a Dynamo Database, you'll need to know your AWS credentials and install `dynamoose` as a dependency
 
-If (or When) we decide to no longer use Mongo to store our data, rather than updating code in potentially hundreds of client modules, we simply need to change how the collection works. So long as the collection's `create()` method continues to accept an object and returns a promise, we can make it use Postgres, Dynamo, SQL Server or any other database instead of mongo, and our client modules don't have to be modified.
+<https://dynamoosejs.com/getting_started/Introduction>
+
+#### Create a Schema with Dynamoose
+
+This is just like Mongoose!
+
+```javascript
+'use strict';
+
+const dynamoose = require('dynamoose');
+
+const friendsSchema = new dynamoose.Schema({
+  'id': String,
+  'name': String,
+  'phone': String,
+});
+
+module.exports = dynamoose.model('friends', friendsSchema);
+```
+
+#### Write your Lambda Function (or any JS) to use your schema...
+
+Again, this is very similar to Mongoose and Mongo
+
+```javascript
+const contentModel = require('./curriculum.schema.js');
+
+async function findRecord(id) {
+  const content = await contentModel.query("id").eq(id).exec();
+  console.log(content[0]);
+}
+
+async function saveRecord(name, phone) {
+  const id = uuid();
+  const record = new contentModel({ id, name, phone });
+  const data = await record.save();
+  console.log(data);
+}
+
+```
+
+
+### Create API Endpoints
+
+1. At API Gateway, create a new HTTP API
+1. Once created, define a route endpoint for each REST method
+1. Connect each endpoint to a lambda
+
+As your routes are invoked by users, those lambda's will fire, with the `event` receiving any POST or QUERY data

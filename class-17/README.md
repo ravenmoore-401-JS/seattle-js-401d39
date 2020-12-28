@@ -1,6 +1,6 @@
-# Data Modeling & NoSQL Databases
+# AWS: S3 and Lambda
 
-Data Modeling: The process of taking a real world or conceptual idea and encoding it into Javascript's built in data types. Models typically describe the physical characteristics (properties) and behaviors (methods) of an object in a way that you can write code that uses your models to problem solve and create applications.
+AWS Lambda allows writing code that is triggered in the cloud, without thinking about maintaining servers.
 
 ## Learning Objectives
 
@@ -8,22 +8,16 @@ Data Modeling: The process of taking a real world or conceptual idea and encodin
 
 #### Describe and Define
 
-- The role of data models
-- CRUD Operations
-- The "Repository" design pattern
-- Interfaces and Services
-- The differences between SQL and NoSQL Databases
-- The MongoDB Ecosystem
-- What is a Mongoose Schema
-- CRUD Functionality through Mongoose Methods
+- S3
+- Buckets and Objects
+- Serverless Functions
+- Pros and Cons of a Serverless Architecture
 
 #### Execute
 
-- Model real world data
-- Create models with constraints, type checking, validity using Mongoose
-- Create an extensible CRUD interface and an implementation for a data model
-- Proficiency with the `mongo` CLI and basic commands
-- Testing code that relies on a Mongo Database server
+- Creating S3 Buckets for file storage
+- Deploying a NodeJS Lambda Function that connects to S3
+- Auto Deploying to AWS through GitHub
 
 ## Today's Outline
 
@@ -31,40 +25,23 @@ Data Modeling: The process of taking a real world or conceptual idea and encodin
 
 ## Notes
 
-### MongoDB Shell Commands
+### Serverless Functions In a nutshell
 
-| Command                  | Description                                                                 |
-| ------------------------ | --------------------------------------------------------------------------- |
-| `mongo`                  | Launch the mongo shell. Once in the shell, you should see `>`               |
-| `show dbs`               | Show all the databases                                                      |
-| `use db <name>`          | Use the database with name `<name>`                                         |
-| `show collections`       | Show all the collections in the current database                            |
-| `db.<collection>.find()` | List all the documents / records in the specified collection `<collection>` |
-| `db.<collection>.save()` | Save a new document / record to the specified collection `<collection>`     |
-| `db.<collection>.drop()` | Completely removes the specified collection `<collection>`                  |
+- Serverless = Micro Applications, Micro Architecture
+- Event Triggered Code
+- Targeted Code (Best language for the job)
+- Strike teams (SME's don't have to integrate)
+- Micro Scaling (Functions scale independently and as needed)
 
-### A Mongoose "Schema"
+### Pro Tips ...
 
-```javascript
-const players = mongoose.Schema({
-  name: { type: String, required: true },
-  position: { type: String, required: true, uppercase: true, enum: ['P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'RF', 'CF'] },
-  throws: { type: String, required: true, uppercase: true, enum: ['R', 'L'] },
-  bats: { type: String, required: true, uppercase: true, enum: ['R', 'L'] },
-  team: { type: String, required: true },
-});
-```
+#### Args / Params
+- Lambdas are called with 2 parameters
+  - Event Data (will likely be complex)
+  - AWS Context
 
-### Mongoose Built-In CRUD Methods
+#### Testing
+- Invoked in the Lambda Console
+- Simulated environments
+- Simulated Input/Event args
 
-(All return promises)
-
-```javascript
-    let newRecord = new schema(record);
-    return newRecord.save();
-
-    schema.findOneByIdAndDelete(id);
-
-    schema(findById(id));
-
-```

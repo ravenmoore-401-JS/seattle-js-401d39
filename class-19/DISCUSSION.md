@@ -1,4 +1,4 @@
-# Readings: AWS: API, Dynamo and Lambda
+# Readings: AWS: Events
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -17,9 +17,10 @@ In your reading notes page for this class, provide answers to the following prom
 
 | Term                            |
 | ------------------------------- |
-| Serverless Functions            |
-| Cloud Storage                   |
-| CDN                             |
+| Serverless API                  |
+| Triggers                        |
+| Dynamo vs Mongo                 |
+| Dynamoose vs Mongoose           |
 
 ## Preview
 
@@ -31,8 +32,11 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [AWS API Gateway Overview](https://www.serverless.com/amazon-api-gateway){:target="_blank"}
-- [AWS API Gateway](https://aws.amazon.com/api-gateway/){:target="_blank"}
-- [AWS DynamoDB Guide](https://www.dynamodbguide.com/what-is-dynamo-db/){:target="_blank"}
-- [AWS DynamoDB](https://aws.amazon.com/dynamodb/){:target="_blank"}
-- [Dynamoose](https://dynamoosejs.com/getting_started/Introduction){:target="_blank"}
+- [SQS and SNS Basics](https://www.youtube.com/watch?v=UesxWuZMZqI){:target="_blank"}
+- [AWS SQS vs SNS](https://medium.com/awesome-cloud/aws-difference-between-sqs-and-sns-61a397bf76c5){:target="_blank"}
+
+
+### Bookmark
+
+- [SNS Javascript SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SNS.html)
+- [SQS Javascript SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/SQS.html)

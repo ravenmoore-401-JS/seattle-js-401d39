@@ -1,4 +1,4 @@
-# Readings: Classes, Inheritance, Functional Programming
+# Readings: AWS: Cloud Servers
 
 Below you will find some reading material, code samples, and some additional resources that support today's topic and the upcoming lecture.
 
@@ -8,25 +8,18 @@ Review the Submission Instructions for guidance on completing and submitting thi
 
 In your reading notes page for this class, provide answers to the following prompts. Cite any external sources
 
-1. Why would you want to run JavaScript code outside of a browser?
-1. What is the difference between a module and a package?
-1. What does the node package manager do?
-1. Provide code snippets showing 3 different ways to export a function from a node module
+1. What's the difference between a FIFO and a standard queue?
+1. How can the server be assured a message was properly received?
+1. What classic design pattern is best represented by event driven programming?
+1. How do you test an event driven system?
 
 ### Document the following Vocabulary Terms
 
-| Term                          |
-| ----------------------------- |
-| ecosystem                     |
-| Node.js                       |
-| V8 Engine                     |
-| module                        |
-| package                       |
-| node package manager (`npm`)  |
-| server                        |
-| environment                   |
-| interpreter                   |
-| compiler                      |
+| Term                            |
+| ------------------------------- |
+| Server                          |
+| Pub/Sub                         |
+| WRRC                            |
 
 ## Preview
 
@@ -38,12 +31,8 @@ Skim the following materials in preparation for the upcoming lecture. Note the f
 
 ### Preparation Materials
 
-- [TDD in JS](http://www.letscodejavascript.com/){:target="_blank"}
-- [javascript context tutorial](https://www.youtube.com/watch?v=fjJoX9F_F5g){:target="_blank"}
-- [MDN inheritance](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain){:target="_blank"}
-- [MDN this](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this){:target="_blank"}
-- [MDN - ES6 Classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes){:target="_blank"}
-
-## Bookmark
-
-- [jest docs](https://jestjs.io/docs/en/getting-started){:target="_blank"}
+- [Virtual Machines](https://www.youtube.com/watch?v=yIVXjl4SwVo){:target="_blank"} (Bookmark This)
+- [VMS and the Cloud](https://www.youtube.com/watch?v=l0DfHUWMjsU){:target="_blank"} (Bookmark This)
+- [AWS EC2](https://aws.amazon.com/ec2/){:target="_blank"}
+- [EC2 For Humans](https://www.youtube.com/watch?v=lZMkgOMYYIg){:target="_blank"}
+- [Elastic Beanstalk](https://www.youtube.com/watch?v=SrwxAScdyT0){:target="_blank"}
