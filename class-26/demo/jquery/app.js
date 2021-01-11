@@ -1,22 +1,29 @@
+'use strict';
+
 let state = {};
 
-let source = document.getElementById('stuff-template').innerHTML;
-let template = Handlebars.compile(source);
-$('#clicker').on('click', handleClick);
 $('#wordsInput').on('change', handleWords);
+$('#clickme').on('click', handleClick);
 
-function handleWords() {
-  state.words = $(this).val();
+function handleWords(e){
+  // console.log(e.target);
+  state.words = e.target.value;
+  render();
 }
 
-function handleClick(event) {
-  event.preventDefault();
-  state.words = state.words
-    .split('')
-    .reverse()
-    .join('');
+function handleClick(e){
+  e.preventDefault();
+  console.log('input', state.words);
+  const words = state.words.split('');
+  const reversedWords = words.reverse();
+  state.words = reversedWords.join('');
 
   render();
+}
+
+function render() {
+  // fill the stuff ID with the results from the handlebars template
+  $('#words').html(state.words);
 }
 
 function init() {
@@ -24,10 +31,7 @@ function init() {
   render();
 }
 
-function render() {
-  $('#stuff').html(template(state));
-}
-
-$(function() {
+// wait until the DOM is completely loaded and then run what is in the function
+$(function(){
   init();
 });
