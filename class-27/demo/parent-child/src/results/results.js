@@ -6,7 +6,8 @@ class Results extends React.Component{
     return(
       <div id="fridge">
         <h3>fridge</h3>
-        <ReactJson src={this.props.pokemon} />
+        {/* <ReactJson src={this.props.pokemon} /> */}
+        <p>{this.props.pokemon}</p>
       </div>
     )
   }
