@@ -1,15 +1,11 @@
-import React from 'react';
+import VotesCounter from './component/votes-counter';
 
-import Votes from './components/vote-counter.js';
-import Status from './components/status.js';
-
-import './style.scss';
-
-export default props => {
+function App() {
   return (
-    <>
-      <Votes />
-      <Status />
-    </>
-  )
-};
+    <div className="App">
+      <VotesCounter />
+    </div>
+  );
+}
+
+export default App;
