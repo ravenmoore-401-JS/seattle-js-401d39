@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux';
-import { increment } from '../store/votes';
+import { increment, reset } from '../store/votes';
 
-const mapDispatchToProps = { increment };
+const mapDispatchToProps = { increment, reset };
 
 // goal: make an app that displays three names and their votes. when a user clicks on someone's name, their vote tally increases
 
@@ -24,6 +24,8 @@ function VotesCounter(props){
     props.increment(name);
   }
 
+  const reset = () => props.reset();
+
   return(
     <div id="votes-counter">
       {props.banana.candidates.map((candidate, idx) => (
@@ -32,6 +34,7 @@ function VotesCounter(props){
           <button onClick={() => voteForCandidate(candidate.name)}>vote for this candidate</button>
         </div>
       ))}
+      <button onClick={reset}>Reset</button>
     </div>
   )
 }

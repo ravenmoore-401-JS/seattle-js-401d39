@@ -15,6 +15,12 @@ export const increment = (name) => {
   }
 }
 
+export const reset = () => {
+  return {
+    type: 'RESET'
+  }
+}
+
 // export a function that has two parameters, state and action
 // action has both type and payload in it
 // switch statement to determijne what the type is
@@ -37,10 +43,17 @@ export default (state=initialState, action) => {
       console.log('inital state', initialState, candidates);
       // initialState.candidates = candidates;
       // return initialState.candidates;
-      return candidates;
+      // return candidates;
 
+      // returns an object with candidates as the key
+
+      // candidates: candidates
+      return {...state, candidates};
       // return state;
-
+    
+    case 'RESET':
+      return initialState;
+      
     default:
       return state;
   }
