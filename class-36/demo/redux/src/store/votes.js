@@ -1,61 +1,47 @@
+// votes reducer
+
 let initialState = {
   candidates: [
-    { name: 'Mary', votes: 0 },
-    { name: 'Bob', votes: 0 },
-    { name: 'Jamie', votes: 0 },
-  ],
-  totalVotes: 0,
-};
+  { name: 'Mary', votes: 0 },
+  { name: 'Bob', votes: 0 },
+  { name: 'Jamie', votes: 0 },
+]};
 
-export default (state = initialState, action) => {
-  let { type, payload } = action;
-
-  switch (type) {
-    case 'INCREMENT':
-
-      let totalVotes = state.totalVotes + 1;
-      let candidates = state.candidates.map(candidate => {
-        if (candidate.name === payload) {
-          // Why return a new object here instead of just updating in place?
-          // Hint: pass by ...
-          return { name: candidate.name, votes: candidate.votes + 1 }
-        }
-        return candidate;
-      });
-
-      console.log('i', initialState);
-
-      // Or you can do this the shredder way ... which you'll often see in live code bases
-      // let candidates = state.candidates.map(candidate => candidate.name == payload ? { ...candidate, votes: candidate.votes + 1 } : candidate);
-
-      return { totalVotes, candidates };
-
-    case 'RESET':
-      console.log(initialState);
-      return initialState;
-
-    default:
-      return state;
-  }
-};
-
+// actions
 export const increment = (name) => {
   return {
     type: 'INCREMENT',
     payload: name
-  };
-};
+  }
+}
 
-export const decrement = (name) => {
-  return {
-    type: 'DECREMENT',
-    payload: name
-  };
-};
+// export a function that has two parameters, state and action
+// action has both type and payload in it
+// switch statement to determijne what the type is
+// the default return is state
 
-export const reset = () => {
-  return {
-    type: 'RESET',
-  };
-};
+export default (state=initialState, action) => {
+  let { type, payload } = action;
+  switch (type) {
+    case 'INCREMENT':
+      // increment the votes for the candidate
+      let candidates = state.candidates.map(candidate => {
+        // find the candidate who was click on
+        if(candidate.name === payload){
+          // increment the vote
+          return {name:candidate.name, votes: candidate.votes + 1}
+        }
+        return candidate;
+      });
 
+      console.log('inital state', initialState, candidates);
+      // initialState.candidates = candidates;
+      // return initialState.candidates;
+      return candidates;
+
+      // return state;
+
+    default:
+      return state;
+  }
+}
