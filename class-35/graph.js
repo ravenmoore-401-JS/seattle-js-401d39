@@ -18,6 +18,7 @@ class Edge {
 class Graph {
   constructor(){
     this.adjacencyList = new Map();
+    this.size = 0;
   }
 
   // {
@@ -25,7 +26,8 @@ class Graph {
   // }
 
   // add a new vertex to this graph
-  addVertex(vertex){
+  addVertex(value){
+    const vertex = new Vertex(value);
     // .set(key, value) puts a key/value (aka node) in the Map
     // when you add a node(vertex) for the first time, the value is an emptey array because it will eventually hold a list of all of the nodes that it is connected to
     this.adjacencyList.set( vertex, [] );
