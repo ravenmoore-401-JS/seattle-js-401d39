@@ -6,6 +6,8 @@ const useForm = (callback) => {
   const handleSubmit = e => {
     e.preventDefault();
     console.log(values);
+
+    // this callback function is the 'eat function' from our food-with-hooks. It's job update the formData state
     callback(values);
   }
 

@@ -1,18 +1,18 @@
 import React from 'react';
+import Main from './main';
 
-import SettingsContext from './context/site.js';
-import ThemeContext from './context/theme.js';
-import Main from './main.js';
-import './app.scss';
+// step 1: make the context
+const WaterfallContext = React.createContext("wet");
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <ThemeContext>
-        <SettingsContext>
-          <Main />
-        </SettingsContext>
-      </ThemeContext>
-    );
+class App extends React.Component{
+  render(){
+    // step 2: wrap everything in the provider
+    return(
+      <WaterfallContext.Provider value="wet">
+        <Main />
+      </WaterfallContext.Provider>
+    )
   }
 }
+
+export default App;
