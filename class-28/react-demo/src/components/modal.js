@@ -24,6 +24,10 @@ class Modal extends React.Component{
     this.setState({ results });
   }
 
+  handleClick = idx => {
+    
+  }
+
   render(){
     console.log('in the render')
     return(
@@ -35,7 +39,7 @@ class Modal extends React.Component{
         <h3>Results!</h3>
         <List>
         {this.state.results.length ? this.state.results.map((value, idx) => (
-          <li key={idx}>
+          <li onClick={() => this.handleClick(idx)} key={idx}>
             <span>name: {value.name}</span>
             <span>url: {value.url}</span>
           </li>

@@ -7,6 +7,7 @@ function Food(props){
   const [handleChange, handleSubmit, values] = useForm(eat);
 
   function eat(food){
+    // the food is the 'values' that we are getting from the food hook and we are useing them to update our formData
     setFormData(food)
   }
 
